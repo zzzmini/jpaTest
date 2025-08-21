@@ -26,4 +26,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     // 어제 이후 생성된 모든 자료 검색하기(어제, 오늘...)
     // select * from users where created_at >= '어제';
     List<Users> findByCreatedAtAfter(LocalDateTime searchDate);
+
+    // 5. 최근 1개월 자료 검색하기
+    List<Users> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 }

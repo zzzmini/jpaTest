@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,8 +47,23 @@ class UsersRepositoryTest {
     @Test
     @DisplayName("findByCreatedAtAfter Test")
     void findByCreatedAtAfter() {
+        LocalDate yesterday = LocalDate.now().minusDays(2L);
+        System.out.println(yesterday);
+        LocalDateTime start = yesterday.atTime(23, 59, 59);
         usersRepository
-                .findByCreatedAtAfter(LocalDateTime.now().minusDays(1L))
+                .findByCreatedAtAfter(start)
+                .forEach(x -> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("최근 한 달 자료 찾기(오늘 포함)")
+    void findByCreateAtBetween() {
+        // 한달 이전의 기준일 설정
+        LocalDate baseDate = LocalDate.now().minusMonths(1L);
+        // 한달 전 날에다 시분초를 붙인다.
+        LocalDateTime start = baseDate.atTime(0, 0, 0);
+        LocalDateTime end = LocalDateTime.now();
+        usersRepository.findByCreatedAtBetween(start, end)
                 .forEach(x -> System.out.println(x));
     }
 }
