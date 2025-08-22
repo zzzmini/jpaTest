@@ -44,7 +44,9 @@ public class QuizTest {
 
     @Test
     @DisplayName("문제 1")
-    void 문제1() {
+    void findByGenderAndNameContainsOrNameContains() {
+        repository.findByGenderAndNameContainsOrNameContains(Gender.Female, "w", "m")
+                .forEach(x-> System.out.println(x));
         // feature/exam01 테스트
         //...
     }

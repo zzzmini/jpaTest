@@ -71,4 +71,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     // 10. Sort 사용하기
     List<Users> findByLikeColor(String color, Sort sort);
 
+    // 문제 1. 여성의 이름 중 "w"또는 "m"을 포함하는 자료를 검색하시오.
+    List<Users> findByGenderAndNameContainsOrNameContains(Gender gender, String name1, String name2);
 }
