@@ -6,14 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
@@ -44,7 +41,7 @@ class UsersRepositoryTest {
     @DisplayName("findByGenderAndLikeColor_Test")
     void findByGenderAndLikeColor() {
         usersRepository.findByGenderAndLikeColor(Gender.Female, "Red")
-                .forEach(x-> System.out.println(x));
+                .forEach(x -> System.out.println(x));
     }
 
     @Test
@@ -76,5 +73,57 @@ class UsersRepositoryTest {
         // 검색하고자 하는 색상의 리스트 만들기
         usersRepository.findByLikeColorIn(Lists.newArrayList("Red", "Pink"))
                 .forEach(x -> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("ID가 91 이상인 자료")
+    void findByIdGreaterThanEqual() {
+        usersRepository.findByIdGreaterThanEqual(91L)
+                .forEach(x -> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByNameStartingWith")
+    void findByNameStartingWith() {
+        usersRepository.findByNameStartingWith("D")
+                .forEach(x -> System.out.println(x));
+    }
+
+    // contains와 like 만 테스트
+    @Test
+    @DisplayName("findByEmailContains")
+    void findByEmailContains() {
+        usersRepository.findByEmailContains("org")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByEmailLike")
+    void findByEmailLike() {
+        usersRepository.findByEmailLike("%org%")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByIdBetweenOrderByNameDesc")
+    void findByIdBetweenOrderByNameDesc() {
+        usersRepository.findByIdBetweenOrderByNameDesc(1L, 10L)
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findTop10ByLikeColorOrderByGenderAscOrderByCreatedAtDesc")
+    void findTop10ByLikeColorOrderByGenderAscCreatedAtDesc() {
+        usersRepository.findTop10ByLikeColorOrderByGenderAscCreatedAtDesc("Orange")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByLikeColor")
+    void findByLikeColor() {
+        usersRepository.findByLikeColor("Orange",
+                Sort.by(Sort.Order.asc("gender"),
+                        Sort.Order.desc("createdAt")))
+                .forEach(x-> System.out.println(x));
     }
 }
