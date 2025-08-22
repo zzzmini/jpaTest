@@ -47,7 +47,5 @@ public class QuizTest {
     void findByGenderAndNameContainsOrNameContains() {
         repository.findByGenderAndNameContainsOrNameContains(Gender.Female, "w", "m")
                 .forEach(x-> System.out.println(x));
-        // feature/exam01 테스트
-        //...
     }
 }
