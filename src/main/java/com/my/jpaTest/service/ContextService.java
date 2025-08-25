@@ -26,4 +26,20 @@ public class ContextService {
         Member won = em.find(Member.class, "jang");
         return won;
     }
+
+    public void transactionTest() {
+        Member ahn = Member.builder()
+                .memberId("jin")
+                .name("안유진")
+                .build();
+
+        Member carina = Member.builder()
+                .memberId("carina")
+                .name("카리나")
+                .build();
+
+        em.persist(ahn);
+        em.persist(carina);
+        em.flush();
+    }
 }
