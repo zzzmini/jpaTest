@@ -2,6 +2,7 @@ package com.my.jpaTest.repository;
 
 import com.my.jpaTest.dto.Gender;
 import com.my.jpaTest.entity.Users;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -98,4 +99,15 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     List<Users> findByGenderAndEmailContainsOrderByCreatedAtDesc(
             Gender gender, String email
     );
+
+    //문제 8. 좋아하는 색상 별로 오름차순 정렬하고 같은 색상 데이터는
+    // 이름의 내림차순으로 출력하시오.
+    // Sort() 이용해서 처리
+
+    // 문제 9. 전체 자료를 가장 최근 입력한 자료 순으로 정렬 및 페이징
+    // 처리하고 한 페이지당 10건씩 출력하되,
+    // 그 중 1번째 페이지를 출력하시오.
+
+    // 문제 10. 남성자료 만.
+    List<Users> findByGender(Gender gender, Pageable pageable);
 }

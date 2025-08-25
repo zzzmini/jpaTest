@@ -9,6 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
@@ -121,6 +124,39 @@ public class QuizTest {
                 .findByGenderAndEmailContainsOrderByCreatedAtDesc(
                         Gender.Female, "edu"
                 )
+                .forEach(x -> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("문제 8")
+    void likeColorSort() {
+        List<Users> result = repository.findAll(
+                Sort.by(Sort.Order.asc("likeColor"),
+                        Sort.Order.desc("name"))
+        );
+        for (int i = 0; i <= 20; i++) {
+            System.out.println(result.get(i));
+        }
+    }
+
+    @Test
+    @DisplayName("문제 9")
+    void sortAndPaging() {
+        Sort sort = Sort.by(Sort.Order.desc("updatedAt"));
+        Pageable pageable = PageRequest
+                .of(0, 10, sort);
+        repository.findAll(pageable).getContent()
+                .forEach(x -> System.out.println(x));
+    }
+
+    // 문제10. 남성 자료를 ID의 내림차순으로 정렬한 후 한페이당 3건을 출력하되
+    // 그 중 2번째 페이지 자료를  출력하시오.
+    @Test
+    @DisplayName("문제 10")
+    void manDataPaging() {
+        Sort sort = Sort.by(Sort.Order.desc("id"));
+        Pageable pageable = PageRequest.of(1, 3, sort);
+        repository.findByGender(Gender.Male, pageable)
                 .forEach(x-> System.out.println(x));
     }
 }
