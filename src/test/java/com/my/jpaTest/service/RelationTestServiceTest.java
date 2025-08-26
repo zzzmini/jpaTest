@@ -1,6 +1,7 @@
 package com.my.jpaTest.service;
 
 import com.my.jpaTest.entity.Member;
+import com.my.jpaTest.entity.Parent;
 import com.my.jpaTest.entity.Team;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
@@ -53,6 +54,17 @@ class RelationTestServiceTest {
         }
     }
 
+    @Test
+    @DisplayName("영속성전이 테스트")
+    void persistTest() {
+        relationTestService.saveChildren();
+    }
+
+    @Test
+    @DisplayName("부모삭제테스트-자식도같이")
+    void deleteParent() {
+        relationTestService.deleteParent();
+    }
     // 장원영(key : jang)의 팀 이름을 알고 싶어요
 //    @Test
 //    @DisplayName("ID:jang의 팀 이름 찾기 테스트")
