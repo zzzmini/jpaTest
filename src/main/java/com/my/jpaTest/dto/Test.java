@@ -1,10 +1,8 @@
 package com.my.jpaTest.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Test {
     public void sout() {
         System.out.println("잘됨");
