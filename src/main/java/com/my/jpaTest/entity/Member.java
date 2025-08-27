@@ -7,7 +7,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +21,13 @@ public class Member {
     @ManyToOne
     @JoinColumn(name = "teamId")
     private Team team;
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId='" + memberId + '\'' +
+                ", name='" + name + '\'' +
+                ", team=" + team.getTeamName() +
+                '}';
+    }
 }
