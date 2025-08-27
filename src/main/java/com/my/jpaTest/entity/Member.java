@@ -7,9 +7,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
-// 난 이게 좋음
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
